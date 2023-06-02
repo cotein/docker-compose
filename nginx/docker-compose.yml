@@ -1,0 +1,55 @@
+version: '3.8'
+services:
+    nginx:
+        #image: nginx:alpine    
+        build: 
+            context: .
+            dockerfile: Dockerfile_nginx
+            args:
+                MYARGUMENTO: "soy un argumento desde docker compose"
+        container_name: coto_nginx
+        restart: always
+        environment:
+            MY_FUCKING_VARIABLE: "este es un mensaje de la fucking variable" 
+            #se accede desde dentro del contenedor
+            #no estan accesibles en el dockerfile
+        ports:
+            - "8080:80"
+        volumes:
+            # - host:container
+            - ./src/:/usr/share/nginx/html 
+        networks:
+            coto_nginx_net:
+                aliases: 
+                    - alias_net_1
+    nginx2:
+        #image: nginx:alpine    
+        build: 
+            context: .
+            dockerfile: Dockerfile_nginx
+            args:
+                MYARGUMENTO: "soy un argumento desde docker compose"
+        container_name: coto_nginx2
+        restart: always
+        environment:
+            MY_FUCKING_VARIABLE: "este es un mensaje de la fucking variable" 
+            #se accede desde dentro del contenedor
+            #no estan accesibles en el dockerfile
+        ports:
+            - "8180:80"
+        volumes:
+            # - host:container
+            - ./src2/:/usr/share/nginx/html 
+        networks:
+            coto_nginx_net:
+                aliases: 
+                    - alias_net_2
+volumes:
+    src: {} #esto le dice a docker que el volumen src lo controlo yo
+    src2: {} #esto le dice a docker que el volumen src lo controlo yo
+networks:
+    coto_nginx_net:
+        name: fucking_network
+        driver: bridge
+        ipam:
+            driver: default

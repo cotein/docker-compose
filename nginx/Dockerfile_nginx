@@ -1,0 +1,12 @@
+FROM nginx:alpine
+
+RUN echo "ojalá me contraten como programador"
+
+ARG MYARGUMENTO="un puto argumento"
+
+RUN echo "Hola soy ${MYARGUMENTO}"
+
+#R  UN apk update
+
+#RUN apk upgrade
+#RUN apk add bash
